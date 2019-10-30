@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<br>
+<div class="container w-50 p-3">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Nieuw vak</legend>
+            <div class="form-group">
+                {{ form.vakcode.label(class="form-control-label") }}
+
+                {% if form.vakcode.errors %}
+                {{ form.vakcode(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.vakcode.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.vakcode(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.vaknaam.label(class="form-control-label") }}
+
+                {% if form.vaknaam.errors %}
+                {{ form.vaknaam(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.vaknaam.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.vaknaam(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+
+{% endblock content%}

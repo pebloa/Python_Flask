@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<br>
+<div class="container w-50 p-3">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Nieuwe student</legend>
+
+            <!-- input field voor naam -->
+            <div class="form-group">
+                {{ form.naam.label(class="form-control-label") }}
+                {% if form.naam.errors %}
+                {{ form.naam(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.naam.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.naam(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor voornaam -->
+            <div class="form-group">
+                {{ form.voornaam.label(class="form-control-label") }}
+                {% if form.voornaam.errors %}
+                {{ form.voornaam(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.voornaam.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.voornaam(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor studentnummer -->
+            <div class="form-group">
+                {{ form.studentnummer.label(class="form-control-label") }}
+                {% if form.studentnummer.errors %}
+                {{ form.studentnummer(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.studentnummer.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.studentnummer(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor richting -->
+            <div class="form-group">
+                {{ form.richting.label(class="form-control-label") }}
+                {% if form.richting.errors %}
+                {{ form.richting(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.richting.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.richting(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor cohort (inschrijvingsjaar) -->
+            <div class="form-group">
+                {{ form.cohort.label(class="form-control-label") }}
+                {% if form.cohort.errors %}
+                {{ form.cohort(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.cohort.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.cohort(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor leerjaar -->
+            <div class="form-group">
+                {{ form.leerjaar.label(class="form-control-label") }}
+                {% if form.leerjaar.errors %}
+                {{ form.leerjaar(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.leerjaar.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.leerjaar(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+
+{% endblock content%}

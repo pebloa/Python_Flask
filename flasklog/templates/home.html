@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<h2>This is the Home page</h2>
+<br>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student</th>
+            <th scope="col">Vak</th>
+            <th scope="col">Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>nederlands</td>
+            <td>22/10/2019</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>nederlands</td>
+            <td>22/10/2019</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>22/10/2019</td>
+        </tr>
+    </tbody>
+</table>
+<!-- {% for post in posts %}
+<h4>{{ post.naam }}</h4>
+<p>{{ post.geboortedatum }}</p>
+<p>{{ post.klas }}</p>
+{% endfor %} -->
+{% endblock content %}
