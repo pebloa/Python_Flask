@@ -23,9 +23,19 @@ posts = [
 def home():
     return render_template('home.html', title='Home', posts=posts)
 
-
-@app.route('/student', methods=['GET', 'POST'])
+# creates page for student
+@app.route('/student')
 def student():
+    return render_template('student.html', title='Student')
+
+# creates page for vak
+@app.route('/vak')
+def vak():
+    return render_template('vak.html', title='Vak')
+
+# creates page for nieuwe_student
+@app.route('/nieuwe_student', methods=['GET', 'POST'])
+def nieuwe_student():
     form = StudentForm()
     if form.validate_on_submit():
         student = Student(naam=form.naam.data, voornaam=form.voornaam.data,
@@ -37,9 +47,9 @@ def student():
         return redirect(url_for('home'))
     return render_template('studentform.html', title='Nieuwe Student', form=form)
 
-
-@app.route('/vak', methods=['GET', 'POST'])
-def vak():
+# creates page for nieuw_vak
+@app.route('/nieuw_vak', methods=['GET', 'POST'])
+def nieuw_vak():
     form = VakForm()
     if form.validate_on_submit():
         vak = Vak(vakcode=form.vakcode.data, vaknaam=form.vaknaam.data)
