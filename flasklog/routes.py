@@ -1,7 +1,7 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request, jsonify
 from flasklog import app, db
-from flasklog.forms import StudentForm, VakForm
-from flasklog.models import Vak, Student
+from flasklog.forms import StudentForm, VakForm, PresentieForm
+from flasklog.models import Vak, Student, Presentie
 
 posts = [
     {
@@ -26,6 +26,9 @@ def home():
 # creates page for presentie
 @app.route('/presentie', methods=['GET', 'POST'])
 def presentie():
+    form=PresentieForm()
+    form.pres_student.choices = [(student_id, naam, voornaam) for pres_student in Student.query.all()]
+    form.pres_vak.choices = [(vak_id, vaknaam) for pres_vak in Vak.query.all()]
     return render_template('presentie.html', title='Presentie')
 
 # creates page for student

@@ -1,18 +1,15 @@
 from flasklog import db
 from datetime import datetime
 
-
-# class Presentie(db.Model):
-# 	pres_id = db.Column(db.Integer, primary_key=True)
-# 	vak_id = db.Column(db.Integer, db.ForeignKey('Vak.vak_id'), nullable=False)
-# 	student_id = db.Column(db.Integer, db.ForeignKey(
-# 	    'Student.student_id'), nullable=False)
-#     presentie = db.Column(db.String(30), nullable=False)
-# 	datum = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+class Presentie(db.Model):
+	pres_id = db.Column(db.Integer, primary_key=True)
+	vak_id = db.Column(db.Integer, db.ForeignKey('Vak.vak_id'), nullable=False)
+	student_id = db.Column(db.Integer, db.ForeignKey('Student.student_id'), nullable=False)
+    presentie = db.Column(db.String(30), nullable=False)
+	datum = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
-    # def __repr__(self):
-    #     return f"('{self.student_id}', '{self.vak_id}', '{self.datum}', '{self.presentie}')"
-
+    def __repr__(self):
+        return f"('{self.student_id}', '{self.vak_id}', '{self.datum}', '{self.presentie}')"
 
 class Student(db.Model):
     student_id = db.Column(db.Integer, primary_key=True)

@@ -8,6 +8,26 @@
     </a>
 </div>
 <br>
+<div class="container w-50 p-3">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Presentie</legend>
 
-
+            <!-- input field voor naam -->
+            <div class="form-group">
+                {{ form.pres_student.label(class="form-control-label") }}
+                {% if form.pres_student.errors %}
+                {{ form.pres_student(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.pres_student.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.pres_student(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+    </form>
+</div>
 {% endblock content%}

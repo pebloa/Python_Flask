@@ -1,21 +1,21 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, ValidationError
-from flasklog.models import Vak, Student
+from flasklog.models import Vak, Student, Presentie
 
 
-# class PresentieForm(FlaskForm):
-#     pres_student = SelectField('Studentnaam', choices[])
-#     pres_vak = SelectField('Vak', choices[])
-#     presentie = SelectField('Presentie', choices[('Aanwezig'), ('Afwezig')])
-#     submit = SubmitField('Opslaan')
+class PresentieForm(FlaskForm):
+    pres_student = SelectField('Studentnaam', choices=[])
+    pres_vak = SelectField('Vak', choices=[])
+    presentie = SelectField('Presentie', choices=[('Aanwezig'), ('Afwezig')])
+    submit = SubmitField('Opslaan')
 
 
 class StudentForm(FlaskForm):
     naam = StringField('Naam', validators=[
-                       DataRequired(), Length(min=1, max=50)])
+    DataRequired(), Length(min=1, max=50)])
     voornaam = StringField('Voornaam', validators=[
-                           DataRequired(), Length(min=1, max=50)])
+    DataRequired(), Length(min=1, max=50)])
     studentnummer = StringField('Studentnummer', validators=[
                                 DataRequired(), Length(min=1, max=225)])
     richting = StringField('Richting', validators=[DataRequired()])
