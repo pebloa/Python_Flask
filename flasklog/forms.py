@@ -5,9 +5,9 @@ from flasklog.models import Vak, Student, Presentie
 
 
 class PresentieForm(FlaskForm):
-    pres_student = SelectField('Studentnaam', choices=[])
-    pres_vak = SelectField('Vak', choices=[])
-    presentie = SelectField('Presentie', choices=[('Aanwezig'), ('Afwezig')])
+    student = SelectField('Studentnaam', choices=[])
+    vak = SelectField('Vak', choices=[])
+    presentie = SelectField('Presentie', choices=[('A', 'Aanwezig'), ('AF', 'Afwezig')])
     submit = SubmitField('Opslaan')
 
 

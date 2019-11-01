@@ -27,9 +27,17 @@ def home():
 @app.route('/presentie', methods=['GET', 'POST'])
 def presentie():
     form=PresentieForm()
-    form.pres_student.choices = [(student_id, naam, voornaam) for pres_student in Student.query.all()]
-    form.pres_vak.choices = [(vak_id, vaknaam) for pres_vak in Vak.query.all()]
-    return render_template('presentie.html', title='Presentie')
+    form.student.choices = [(student.naam, f'{student.naam} {student.voornaam}') for student in Student.query.all()]
+    form.vak.choices = [(vak.vak_id, vak.vaknaam) for vak in Vak.query.all()]
+    if form.validate_on_submit():
+        presentie = Presentie(vak_id=form.vak.data, student_id=form.student.data, presentie=form.presentie.data)
+        db.session(presentie)
+        db.session.commit()
+        flash(
+            f'{form.student.data} is {form.presentie.data}.'
+        )
+        return redirect(url_for('home'))
+    return render_template('presentie.html', title='Presentie', form=form)
 
 # creates page for student
 @app.route('/student')
@@ -46,12 +54,12 @@ def vak():
 def nieuwe_student():
     form = StudentForm()
     if form.validate_on_submit():
-        student = Student(naam=form.naam.data, voornaam=form.voornaam.data,
-                          studentnummer=form.studentnummer.data, richting=form.richting.data, cohort=form.cohort.data, leerjaar=form.leerjaar.data)
+        student = Student(naam=form.naam.data, voornaam=form.voornaam.data, studentnummer=form.studentnummer.data, richting=form.richting.data, cohort=form.cohort.data, leerjaar=form.leerjaar.data)
         db.session.add(student)
         db.session.commit()
         flash(
-            f'Student, {form.naam.data} {form.voornaam.data}, succesvol opgeslagen!', 'success')
+            f'Student, {form.naam.data} {form.voornaam.data}, succesvol opgeslagen!', 'success'
+        )
         return redirect(url_for('home'))
     return render_template('studentform.html', title='Nieuwe Student', form=form)
 
