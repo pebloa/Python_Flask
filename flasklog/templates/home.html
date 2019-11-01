@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 <br>
-<h2>This is the Home page</h2>
+<div>
+    <div class="float-right">
+        <a href="{{ url_for('presentie') }}">
+            <button type="button" class="btn btn-outline-info">Presentie</button>
+        </a>
+    </div>
+    <div class="float-left">
+        <h2>This is the Home page</h2>
+    </div>
+</div>
+<br>
+<br>
 <br>
 <table class="table table-sm">
     <thead>

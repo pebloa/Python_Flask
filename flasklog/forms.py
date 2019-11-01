@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField
+from wtforms import StringField, SubmitField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, ValidationError
 from flasklog.models import Vak, Student
+
+
+# class PresentieForm(FlaskForm):
+#     pres_student = SelectField('Studentnaam', choices[])
+#     pres_vak = SelectField('Vak', choices[])
+#     presentie = SelectField('Presentie', choices[('Aanwezig'), ('Afwezig')])
+#     submit = SubmitField('Opslaan')
 
 
 class StudentForm(FlaskForm):
@@ -13,7 +20,8 @@ class StudentForm(FlaskForm):
                                 DataRequired(), Length(min=1, max=225)])
     richting = StringField('Richting', validators=[DataRequired()])
     cohort = IntegerField('Cohort', validators=[DataRequired()])
-    leerjaar = IntegerField('Leerjaar', validators=[DataRequired()])
+    leerjaar = SelectField('Leerjaar', choices=[(
+        '1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], validators=[DataRequired()])
     submit = SubmitField('Opslaan')
 
     def validate_studentnummer(self, studentnummer):

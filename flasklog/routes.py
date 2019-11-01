@@ -23,6 +23,11 @@ posts = [
 def home():
     return render_template('home.html', title='Home', posts=posts)
 
+# creates page for presentie
+@app.route('/presentie', methods=['GET', 'POST'])
+def presentie():
+    return render_template('presentie.html', title='Presentie')
+
 # creates page for student
 @app.route('/student')
 def student():
