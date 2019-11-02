@@ -9,7 +9,7 @@ class Student(db.Model):
     richting = db.Column(db.String(225), nullable=False)
     cohort = db.Column(db.Integer(), nullable=False)
     leerjaar = db.Column(db.Integer(), nullable=False)
-    # presentie = db.relationship('Presentie', backref='presentie', lazy=True)
+    presentie = db.relationship('Presentie', backref='student', lazy=True)
 
     def __repr__(self):
         return f"Student('{self.studentnummer}', '{self.naam}', '{self.voornaam}')"
@@ -19,6 +19,7 @@ class Vak(db.Model):
     vak_id = db.Column(db.Integer(), primary_key=True)
     vakcode = db.Column(db.String(225), unique=True, nullable=False)
     vaknaam = db.Column(db.String(225), unique=True, nullable=False)
+    presentie = db.relationship('Presentie', backref='vak', lazy=True)
 
     def __repr__(self):
         return f"Vak('{self.vakcode}', '{self.vaknaam}')"

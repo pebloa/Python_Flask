@@ -27,15 +27,17 @@ def home():
 @app.route('/presentie', methods=['GET', 'POST'])
 def presentie():
     form=PresentieForm()
-    form.student.choices = [(student.naam, f'{student.naam} {student.voornaam}') for student in Student.query.all()]
+    form.student.choices = [(student.student_id, f'{student.naam} {student.voornaam}') for student in Student.query.all()]
     form.vak.choices = [(vak.vak_id, vak.vaknaam) for vak in Vak.query.all()]
     if form.validate_on_submit():
+        # vak = Vak.query.filter_by(vak_id=form.vak.data).first()
+        # student = Student.query.filter_by(student_id=form.student.data).first()
         presentie = Presentie(vak_id=form.vak.data, student_id=form.student.data, presentie=form.presentie.data)
-        db.session(presentie)
+        db.session.add(presentie)
         db.session.commit()
-        flash(
-            f'{form.student.data} is {form.presentie.data}.'
-        )
+        # flash(
+        #     f'{student.naam} {student.voornaam} is {form.presentie.data} tijdens {vak.vaknaam}!', 'success'
+        # )
         return redirect(url_for('home'))
     return render_template('presentie.html', title='Presentie', form=form)
 
@@ -60,7 +62,7 @@ def nieuwe_student():
         flash(
             f'Student, {form.naam.data} {form.voornaam.data}, succesvol opgeslagen!', 'success'
         )
-        return redirect(url_for('home'))
+        return redirect(url_for('student'))
     return render_template('studentform.html', title='Nieuwe Student', form=form)
 
 # creates page for nieuw_vak
@@ -73,5 +75,5 @@ def nieuw_vak():
         db.session.commit()
         flash(
             f'Vak, {form.vaknaam.data}, succesvol opgeslagen!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('vak'))
     return render_template('vakform.html', title='Nieuw Vak', form=form)
