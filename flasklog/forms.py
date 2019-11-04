@@ -7,7 +7,7 @@ from flasklog.models import Vak, Student, Presentie
 class PresentieForm(FlaskForm):
     student = SelectField('Studentnaam', coerce=int, choices=[])
     vak = SelectField('Vak', coerce=int, choices=[])
-    presentie = SelectField('Presentie', choices=[('A', 'Aanwezig'), ('AF', 'Afwezig')])
+    presentie = SelectField('Presentie', choices=[('Aanwezig', 'Aanwezig'), ('Afwezig', 'Afwezig')])
     submit = SubmitField('Opslaan')
 
 
@@ -33,8 +33,7 @@ class StudentForm(FlaskForm):
 
 
 class VakForm(FlaskForm):
-    vakcode = StringField('Vakcode', validators=[
-                          DataRequired(), Length(min=1, max=225)])
+    vakcode = StringField('Vakcode', validators=[DataRequired(), Length(min=1, max=225)])
     vaknaam = StringField('Vak', validators=[DataRequired()])
     submit = SubmitField('Opslaan')
 

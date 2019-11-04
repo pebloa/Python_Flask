@@ -7,5 +7,41 @@
         <button type="button" class="btn btn-outline-info">Nieuwe Student</button>
     </a>
 </div>
-
+<br>
+<br>
+<br>
+<div style="height: 20em; overflow: auto;">
+    <table id="tbl_student" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Studentnummer</th>
+                <th scope="col">Naam</th>
+                <th scope="col">Voornaam</th>
+                <th scope="col">Cohort</th>
+                <th scope="col">Richting</th>
+                <th scope="col">Leerjaar</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Student in posts %}
+            <tr>
+                <td>{{ Student.student_id }}</td>
+                <td>{{ Student.studentnummer }}</td>
+                <td>{{ Student.naam }}</td>
+                <td>{{ Student.voornaam }}</td>
+                <td>{{ Student.cohortnaam }}</td>
+                <td>{{ Student.richting }}</td>
+                <td>{{ Student.leerjaar }}</td>
+                <td>
+                    <a href="{{ url_for('student_update', student_nummer=Student.studentnummer) }}">
+                        <button type="button" class="btn btn-outline-info">Wijzigen</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content%}
