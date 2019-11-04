@@ -30,7 +30,7 @@ def student():
 
 # creates page for student update
 @app.route('/student/<int:student_id>', methods=['GET', 'POST'])
-def student(student_id):
+def student_update(student_id):
     post = Student.query.get_or_404(student_id)
     return render_template('updatestudent.html', title=Student.naam, posts=post)
 
