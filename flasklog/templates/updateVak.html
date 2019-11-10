@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div class="float-right">
+    <a href="{{ url_for('vakken') }}">
+        <button type="button" class="btn btn-outline-info">Terug</button>
+    </a>
+</div>
+<br>
+<br>
+<br>
+<h2>{{ posts.vak_id }}</h2>
+<h2>{{ posts.vaknaam }}</h2>
+{% endblock content %}

@@ -14,11 +14,40 @@
 <br>
 <br>
 <br>
-{% for Presentie in posts %}
-<h4>{{ Presentie.pres_id }}</h4>
-<p>{{ Presentie.vak_id }}</p>
-<p>{{ Presentie.student_id }}</p>
-<p>{{ Presentie.presentie }}</p>
-<p>{{ Presentie.datum }}</p>
-{% endfor %}
+<div style="height: 20em; overflow: auto;">
+    <table id="tbl_student" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Vak</th>
+                <th scope="col">Student</th>
+                <th scope="col">Presentie</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Blok</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pres in posts %}
+            <tr>
+                <td>{{ pres.pres_id }}</td>
+                <td>{{ pres.vak.vaknaam }}</td>
+                <td>{{ pres.student.naam }} {{ pres.student.voornaam }}</td>
+                <td>{{ pres.presentie }}</td>
+                <td>{{ pres.datum.strftime('%d/%m/%y') }}</td>
+                <td>{{ pres.blok }}</td>
+                <td>
+                    <a href="{{ url_for('pres', id=pres.pres_id) }}">
+                        <button type="button" class="btn btn-outline-info">Wijzigen</button>
+                    </a>
+                    <a href="{{ url_for('verwijder_pres', id=pres.pres_id) }}">
+                        <button type="button" class="btn btn-outline-danger">Verijderen</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock content %}

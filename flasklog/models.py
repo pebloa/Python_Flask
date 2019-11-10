@@ -30,7 +30,8 @@ class Presentie(db.Model):
     vak_id = db.Column(db.Integer(), db.ForeignKey('vak.vak_id'), nullable=False)
     student_id = db.Column(db.Integer(), db.ForeignKey('student.student_id'), nullable=False)
     presentie = db.Column(db.String(30))
-    datum = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    datum = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    blok = db.Column(db.Integer, nullable=False)
     
     def __repr__(self):
         return f"('{self.student_id}', '{self.vak_id}', '{self.datum}', '{self.presentie}')"

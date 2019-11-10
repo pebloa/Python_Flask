@@ -25,18 +25,21 @@
             </tr>
         </thead>
         <tbody>
-            {% for Student in posts %}
+            {% for student in posts %}
             <tr>
-                <td>{{ Student.student_id }}</td>
-                <td>{{ Student.studentnummer }}</td>
-                <td>{{ Student.naam }}</td>
-                <td>{{ Student.voornaam }}</td>
-                <td>{{ Student.cohortnaam }}</td>
-                <td>{{ Student.richting }}</td>
-                <td>{{ Student.leerjaar }}</td>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.studentnummer }}</td>
+                <td>{{ student.naam }}</td>
+                <td>{{ student.voornaam }}</td>
+                <td>{{ student.cohort }}</td>
+                <td>{{ student.richting }}</td>
+                <td>{{ student.leerjaar }}</td>
                 <td>
-                    <a href="{{ url_for('student_update', student_id=Student.student_id) }}">
+                    <a href="{{ url_for('student', id=student.student_id) }}">
                         <button type="button" class="btn btn-outline-info">Wijzigen</button>
+                    </a>
+                    <a href="{{ url_for('verwijder_student', id=student.student_id) }}">
+                        <button type="button" class="btn btn-outline-danger">Verijderen</button>
                     </a>
                 </td>
             </tr>

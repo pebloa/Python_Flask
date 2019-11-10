@@ -8,6 +8,7 @@ class PresentieForm(FlaskForm):
     student = SelectField('Studentnaam', coerce=int, choices=[])
     vak = SelectField('Vak', coerce=int, choices=[])
     presentie = SelectField('Presentie', choices=[('Aanwezig', 'Aanwezig'), ('Afwezig', 'Afwezig')])
+    blok = SelectField('Blok', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')])
     submit = SubmitField('Opslaan')
 
 

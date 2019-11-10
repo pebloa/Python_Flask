@@ -44,6 +44,21 @@
                 {% endif %}
             </div>
 
+            <!-- input field voor blok -->
+            <div class="form-group">
+                {{ form.blok.label(class="form-control-label") }}
+                {% if form.blok.errors %}
+                {{ form.blok(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.blok.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.blok(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
             <!-- input field voor presentie -->
             <div class="form-group">
                 {{ form.presentie.label(class="form-control-label") }}

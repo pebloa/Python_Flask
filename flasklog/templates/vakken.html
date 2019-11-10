@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div class="float-right">
+    <a href="{{ url_for('nieuw_vak') }}">
+        <button type="button" class="btn btn-outline-info">Nieuw Vak</button>
+    </a>
+</div>
+<br>
+<br>
+<br>
+<div style="height: 20em; overflow: auto;">
+        <table id="tbl_vak" class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Vakcode</th>
+                    <th scope="col">Vak</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vak in posts %}
+                <tr>
+                    <td>{{ vak.vak_id }}</td>
+                    <td>{{ vak.vakcode }}</td>
+                    <td>{{ vak.vaknaam }}</td>
+                    <td>
+                        <a href="{{ url_for('vak', id=vak.vak_id) }}">
+                            <button type="button" class="btn btn-outline-info">Wijzigen</button>
+                        </a>
+                        <a href="{{ url_for('verwijder_vak', id=vak.vak_id) }}">
+                            <button type="button" class="btn btn-outline-danger">Verijderen</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content%}
