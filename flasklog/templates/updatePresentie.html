@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<br>
+<div class="float-right">
+    <a href="{{ url_for('home') }}">
+        <button type="button" class="btn btn-outline-info">Terug</button>
+    </a>
+</div>
+<br>
+<div class="container w-50 p-3">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Presentie Opname</legend>
+            <fieldset disabled>
+                <!-- input field voor naam -->
+                <div class="form-group">
+                    {{ form.student.label(class="form-control-label") }}
+                    {% if form.student.errors %}
+                    {{ form.student(class="form-control form-control-lg is-invalid", readonly="true") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.student.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.student(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- input field voor vak -->
+                <div class="form-group">
+                    {{ form.vak.label(class="form-control-label") }}
+                    {% if form.vak.errors %}
+                    {{ form.vak(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.vak.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.vak(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <!-- input field voor blok -->
+            <div class="form-group">
+                {{ form.blok.label(class="form-control-label") }}
+                {% if form.blok.errors %}
+                {{ form.blok(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.blok.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.blok(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- input field voor presentie -->
+            <div class="form-group">
+                {{ form.presentie.label(class="form-control-label") }}
+                {% if form.presentie.errors %}
+                {{ form.presentie(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.presentie.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.presentie(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content%}

@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flasklog import app, db
-from flasklog.forms import StudentForm, VakForm, PresentieForm
+from flasklog.forms import StudentForm, updateStudentForm, VakForm, updateVakForm, PresentieForm, updatePresentieForm
 from flasklog.models import Vak, Student, Presentie
 
 @app.route('/')
@@ -28,7 +28,21 @@ def pres(id):
     pres = Presentie.query.get_or_404(id)
     student = pres.student
     vak = pres.vak
-    return render_template('updatePresentie.html', title=f'{student.naam} {student.voornaam}', posts=pres)
+    form = updatePresentieForm()
+    if form.validate_on_submit():
+        pres.blok = form.blok.data
+        pres.presentie = form.presentie.data
+        db.session.commit()
+        flash(
+            f'Presentie van {student.naam} {student.voornaam} gewijzigd!', 'success')
+        return redirect(url_for('home'))        
+    elif request.method == 'GET':
+        form.vak.data = vak.vaknaam
+        form.student.data = f'{student.naam} {student.voornaam}'
+        form.blok.data = pres.blok
+        form.presentie.data = pres.presentie
+    return render_template('updatePresentie.html', title=f'{student.naam} {student.voornaam}', form=form, legend='Presentie Wijzigen')
+
 
 # creates page for delete presentie
 @app.route('/presentie/<int:id>/verwijder')
@@ -51,7 +65,7 @@ def studenten():
 @app.route('/student/<int:id>', methods=['GET', 'POST'])
 def student(id):
     student = Student.query.get_or_404(id)
-    form = StudentForm()
+    form = updateStudentForm()
     if form.validate_on_submit():
         student.cohort = form.cohort.data
         student.richting = form.richting.data
@@ -98,10 +112,21 @@ def vakken():
     return render_template('vakken.html', title='Vak', posts=vak)
 
 # creates a page for update vak
-@app.route("/vak/<int:id>")
+@app.route("/vak/<int:id>", methods=['GET', 'POST'])
 def vak(id):
     vak = Vak.query.get_or_404(id)
-    return render_template('updateVak.html', title=vak.vaknaam, posts=vak)
+    form = updateVakForm()
+    if form.validate_on_submit():
+        vak.vakcode = form.vakcode.data
+        vak.vaknaam = form.vaknaam.data
+        db.session.commit()
+        flash(
+            f'Vak, {vak.vaknaam} ({vak.vakcode}) gewijzigd!', 'success')
+        return redirect(url_for('vakken'))        
+    elif request.method == 'GET':
+        form.vakcode.data = vak.vakcode
+        form.vaknaam.data = vak.vaknaam
+    return render_template('updateVak.html', title=f'{vak.vaknaam} {vak.vakcode}', form=form, legend='Vak Wijzigen')
 
 # creates page for new vak
 @app.route('/nieuw_vak', methods=['GET', 'POST'])

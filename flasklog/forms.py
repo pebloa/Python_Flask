@@ -12,13 +12,17 @@ class PresentieForm(FlaskForm):
     submit = SubmitField('Opslaan')
 
 
+class updatePresentieForm(FlaskForm):
+    student = StringField('Naam')
+    vak = StringField('Vak')
+    presentie = SelectField('Presentie', choices=[('Aanwezig', 'Aanwezig'), ('Afwezig', 'Afwezig')])
+    blok = SelectField('Blok', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')])
+    submit = SubmitField('Opslaan')
+
 class StudentForm(FlaskForm):
-    naam = StringField('Naam', validators=[
-    DataRequired(), Length(min=1, max=50)])
-    voornaam = StringField('Voornaam', validators=[
-    DataRequired(), Length(min=1, max=50)])
-    studentnummer = StringField('Studentnummer', validators=[
-                                DataRequired(), Length(min=1, max=225)])
+    naam = StringField('Naam', validators=[DataRequired(), Length(min=1, max=50)])
+    voornaam = StringField('Voornaam', validators=[DataRequired(), Length(min=1, max=50)])
+    studentnummer = StringField('Studentnummer', validators=[DataRequired(), Length(min=1, max=225)])
     richting = StringField('Richting', validators=[DataRequired()])
     cohort = IntegerField('Cohort', validators=[DataRequired()])
     leerjaar = SelectField('Leerjaar', choices=[(
@@ -31,6 +35,14 @@ class StudentForm(FlaskForm):
         if studentnummer:
             raise ValidationError(
                 'De studentnummer die u heeft ingevuld bestaat al.')
+
+
+class updateStudentForm(FlaskForm):
+    richting = StringField('Richting', validators=[DataRequired()])
+    cohort = IntegerField('Cohort', validators=[DataRequired()])
+    leerjaar = SelectField('Leerjaar', choices=[(
+        '1', '1'), ('2', '2'), ('3', '3'), ('4', '4')], validators=[DataRequired()])
+    submit = SubmitField('Opslaan')
 
 
 class VakForm(FlaskForm):
@@ -49,3 +61,9 @@ class VakForm(FlaskForm):
         if vaknaam:
             raise ValidationError(
                 'De vak die u heeft ingevuld bestaat al.')
+
+
+class updateVakForm(FlaskForm):
+    vakcode = StringField('Vakcode', validators=[DataRequired(), Length(min=1, max=225)])
+    vaknaam = StringField('Vak', validators=[DataRequired()])
+    submit = SubmitField('Opslaan')
