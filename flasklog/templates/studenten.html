@@ -2,10 +2,25 @@
 {% block content %}
 
 <br>
-<div class="float-right">
-    <a href="{{ url_for('nieuwe_student') }}">
-        <button type="button" class="btn btn-outline-info">Nieuwe Student</button>
-    </a>
+<div>
+    <!-- export button -->
+    <div class="float-right">
+        <form method="POST">
+            <div class="form-group">
+                {{ form.submit(class="btn btn-secondary") }}
+            </div>
+        </form>
+    </div>
+    <!-- terug button -->
+    <div class="float-right" style="margin-right:10px;">
+        <a href="{{ url_for('nieuwe_student') }}">
+            <button type="button" class="btn btn-outline-info">Nieuwe Student</button>
+        </a>
+    </div>
+    <!-- searchbar -->
+    <div class="float-right" style="margin-right:10px;">
+        <input type="search" class="form-control" id="search" placeholder="Zoeken..." onkeyup="searchFunctionRep()">
+    </div>
 </div>
 <br>
 <br>
@@ -47,4 +62,54 @@
         </tbody>
     </table>
 </div>
+<script>
+    function searchFunctionRep() {
+        //Declare variabelen 
+        var input, filter, table, tr, td, i, txtValue;
+        //ID VAN JE SEARCHBAR
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        //ID VAN JE VAKKEN TABEL
+        table = document.getElementById("tbl_student");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            //id
+            td = tr[i].getElementsByTagName("td")[0];
+            //studentnr
+            td2 = tr[i].getElementsByTagName("td")[1];
+            //naam
+            td3 = tr[i].getElementsByTagName("td")[2];
+            //voornaam
+            td4 = tr[i].getElementsByTagName("td")[3];
+            //cohort
+            td5 = tr[i].getElementsByTagName("td")[4];
+            //richting
+            td6 = tr[i].getElementsByTagName("td")[5];
+            //leerjaar
+            td7 = tr[i].getElementsByTagName("td")[6];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                txtValue3 = td3.textContent || td3.innerText;
+                txtValue4 = td4.textContent || td4.innerText;
+                txtValue5 = td5.textContent || td5.innerText;
+                txtValue6 = td6.textContent || td6.innerText;
+                txtValue7 = td7.textContent || td7.innerText;
+                if (
+                    txtValue.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue2.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue3.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue4.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue5.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue6.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue7.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 {% endblock content%}

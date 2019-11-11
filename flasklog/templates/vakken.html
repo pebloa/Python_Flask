@@ -1,41 +1,82 @@
 {% extends "layout.html" %}
 {% block content %}
 <br>
-<div class="float-right">
-    <a href="{{ url_for('nieuw_vak') }}">
-        <button type="button" class="btn btn-outline-info">Nieuw Vak</button>
-    </a>
+<div>
+    <!-- teurg button -->
+    <div class="float-right">
+        <a href="{{ url_for('nieuw_vak') }}">
+            <button type="button" class="btn btn-outline-info">Nieuw Vak</button>
+        </a>
+    </div>
+    <!-- searchbar -->
+    <div class="float-right" style="margin-right:10px;">
+        <input type="search" class="form-control" id="search" placeholder="Zoeken..." onkeyup="searchFunctionRep()">
+    </div>
 </div>
 <br>
 <br>
 <br>
 <div style="height: 20em; overflow: auto;">
-        <table id="tbl_vak" class="table table-sm">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Vakcode</th>
-                    <th scope="col">Vak</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for vak in posts %}
-                <tr>
-                    <td>{{ vak.vak_id }}</td>
-                    <td>{{ vak.vakcode }}</td>
-                    <td>{{ vak.vaknaam }}</td>
-                    <td>
-                        <a href="{{ url_for('vak', id=vak.vak_id) }}">
-                            <button type="button" class="btn btn-outline-info">Wijzigen</button>
-                        </a>
-                        <a href="{{ url_for('verwijder_vak', id=vak.vak_id) }}">
-                            <button type="button" class="btn btn-outline-danger">Verijderen</button>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
+    <table id="tbl_vak" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Vakcode</th>
+                <th scope="col">Vak</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vak in posts %}
+            <tr>
+                <td>{{ vak.vak_id }}</td>
+                <td>{{ vak.vakcode }}</td>
+                <td>{{ vak.vaknaam }}</td>
+                <td>
+                    <a href="{{ url_for('vak', id=vak.vak_id) }}">
+                        <button type="button" class="btn btn-outline-info">Wijzigen</button>
+                    </a>
+                    <a href="{{ url_for('verwijder_vak', id=vak.vak_id) }}">
+                        <button type="button" class="btn btn-outline-danger">Verijderen</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+<script>
+    function searchFunctionRep() {
+        //Declare variabelen 
+        var input, filter, table, tr, td, i, txtValue;
+        //ID VAN JE SEARCHBAR
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        //ID VAN JE VAKKEN TABEL
+        table = document.getElementById("tbl_vak");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            //id
+            td = tr[i].getElementsByTagName("td")[0];
+            //vakcode
+            td2 = tr[i].getElementsByTagName("td")[1];
+            //vaknaam
+            td3 = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                txtValue3 = td3.textContent || td3.innerText;
+                if (
+                    txtValue.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue2.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue3.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 {% endblock content%}

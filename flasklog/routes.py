@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from flasklog import app, db
-from flasklog.forms import StudentForm, updateStudentForm, VakForm, updateVakForm, PresentieForm, updatePresentieForm
+from flasklog.forms import StudentForm, updateStudentForm, exportStudentenFrom, VakForm, updateVakForm, PresentieForm, updatePresentieForm
 from flasklog.models import Vak, Student, Presentie
+from pandas import DataFrame
 
 @app.route('/')
 @app.route('/home')
@@ -56,10 +57,21 @@ def verwijder_pres(id):
 
 
 # creates page for studenten
-@app.route('/studenten')
+@app.route('/studenten', methods=['GET', 'POST'])
 def studenten():
     student = Student.query.all()
-    return render_template('studenten.html', title='Studenten', posts=student)
+    form = exportStudentenFrom()
+    if form.validate_on_submit():
+        stu = {
+            'studentnummer': ['student.studentnummer'],
+            'naam': ['student.naam'],
+            'voornaam': ['student.voornaam'],
+            'cohort': ['student.cohort']
+        }
+        df = DataFrame(stu, columns=['studentnummer', 'naam', 'voornaam', 'cohort'])
+        #Don't forget to add '.csv' at the end of the path
+        df.to_csv(r'C:\Users\kensonlatchmansing\Desktop\studenten.csv', index=None, header=True)
+    return render_template('studenten.html', title='Studenten', posts=student, form=form)
 
 # creates page for update student
 @app.route('/student/<int:id>', methods=['GET', 'POST'])

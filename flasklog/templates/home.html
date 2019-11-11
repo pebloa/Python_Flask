@@ -2,11 +2,22 @@
 {% block content %}
 <br>
 <div>
+    <!-- print button -->
     <div class="float-right">
+        <button type="button" class="btn btn-secondary" onClick="window.print()" title="Printen"
+            style='color: #fff;'>Print</button>
+    </div>
+    <!-- terug button -->
+    <div class="float-right" style="margin-right:10px;">
         <a href="{{ url_for('presentie') }}">
             <button type="button" class="btn btn-outline-info">Presentie Opname</button>
         </a>
     </div>
+    <!-- searchbar -->
+    <div class="float-right" style="margin-right:10px;">
+        <input type="search" class="form-control" id="search" placeholder="Zoeken..." onkeyup="searchFunctionRep()">
+    </div>
+    <!-- home page text -->
     <div class="float-left">
         <h2>This is the Home page</h2>
     </div>
@@ -16,7 +27,7 @@
 <br>
 <div style="height: 20em; overflow: auto;">
     <table id="tbl_student" class="table table-sm">
-        <thead>
+        <thead class="print">
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Vak</th>
@@ -30,12 +41,12 @@
         <tbody>
             {% for pres in posts %}
             <tr>
-                <td>{{ pres.pres_id }}</td>
-                <td>{{ pres.vak.vaknaam }}</td>
-                <td>{{ pres.student.naam }} {{ pres.student.voornaam }}</td>
-                <td>{{ pres.presentie }}</td>
-                <td>{{ pres.datum.strftime('%d/%m/%y') }}</td>
-                <td>{{ pres.blok }}</td>
+                <td class="print">{{ pres.pres_id }}</td>
+                <td class="print">{{ pres.vak.vaknaam }}</td>
+                <td class="print">{{ pres.student.naam }} {{ pres.student.voornaam }}</td>
+                <td class="print">{{ pres.presentie }}</td>
+                <td class="print">{{ pres.datum.strftime('%d/%m/%y') }}</td>
+                <td class="print">{{ pres.blok }}</td>
                 <td>
                     <a href="{{ url_for('pres', id=pres.pres_id) }}">
                         <button type="button" class="btn btn-outline-info">Wijzigen</button>
@@ -49,5 +60,50 @@
         </tbody>
     </table>
 </div>
-
+<script>
+    function searchFunctionRep() {
+        //Declare variabelen 
+        var input, filter, table, tr, td, i, txtValue;
+        //ID VAN JE SEARCHBAR
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        //ID VAN JE VAKKEN TABEL
+        table = document.getElementById("tbl_student");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            //id
+            td = tr[i].getElementsByTagName("td")[0];
+            //vak
+            td2 = tr[i].getElementsByTagName("td")[1];
+            //student
+            td3 = tr[i].getElementsByTagName("td")[2];
+            //presentie
+            td4 = tr[i].getElementsByTagName("td")[3];
+            //datum
+            td5 = tr[i].getElementsByTagName("td")[4];
+            //blok
+            td6 = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                txtValue3 = td3.textContent || td3.innerText;
+                txtValue4 = td4.textContent || td4.innerText;
+                txtValue5 = td5.textContent || td5.innerText;
+                txtValue6 = td6.textContent || td6.innerText;
+                if (
+                    txtValue.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue2.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue3.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue4.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue5.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue6.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 {% endblock content %}
