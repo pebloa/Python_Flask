@@ -45,9 +45,6 @@ class updateStudentForm(FlaskForm):
     submit = SubmitField('Opslaan')
 
 
-class exportStudentenFrom(FlaskForm):
-    submit = SubmitField('Exporteren')
-
 class VakForm(FlaskForm):
     vakcode = StringField('Vakcode', validators=[DataRequired(), Length(min=1, max=225)])
     vaknaam = StringField('Vak', validators=[DataRequired()])

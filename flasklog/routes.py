@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flasklog import app, db
-from flasklog.forms import StudentForm, updateStudentForm, exportStudentenFrom, VakForm, updateVakForm, PresentieForm, updatePresentieForm
+from flasklog.forms import StudentForm, updateStudentForm, VakForm, updateVakForm, PresentieForm, updatePresentieForm
 from flasklog.models import Vak, Student, Presentie
 from pandas import DataFrame
 
@@ -60,18 +60,26 @@ def verwijder_pres(id):
 @app.route('/studenten', methods=['GET', 'POST'])
 def studenten():
     student = Student.query.all()
-    form = exportStudentenFrom()
-    if form.validate_on_submit():
-        stu = {
-            'studentnummer': ['student.studentnummer'],
-            'naam': ['student.naam'],
-            'voornaam': ['student.voornaam'],
-            'cohort': ['student.cohort']
-        }
-        df = DataFrame(stu, columns=['studentnummer', 'naam', 'voornaam', 'cohort'])
-        #Don't forget to add '.csv' at the end of the path
-        df.to_csv(r'C:\Users\kensonlatchmansing\Desktop\studenten.csv', index=None, header=True)
-    return render_template('studenten.html', title='Studenten', posts=student, form=form)
+    return render_template('studenten.html', title='Studenten', posts=student)
+
+
+# create route for csv export
+@app.route('/export', methods=['GET', 'POST'])
+def export():
+    studentNaam = [(student.naam) for student in Student.query.all()]
+    studentVoornaam  = [(student.voornaam) for student in Student.query.all()]
+    studentNr = [(student.studentnummer) for student in Student.query.all()]
+    studentCohort = [(student.cohort) for student in Student.query.all()]
+    
+    data = {'naam': studentNaam, 'voornaam': studentVoornaam, 'studentnr': studentNr, 'cohort': studentCohort}
+    df = DataFrame(data, columns=['naam', 'voornaam', 'studentnr', 'cohort'])
+    df.to_csv(r'C:\Users\user\Desktop\studenten.csv', index=False, header=True)
+    # df.to_csv(r'C:\Users\kensonlatchmansing\Desktop\studenten.csv', index=False, header=True)
+    flash(
+        f'studenten succesvol opgeslagen als .csv!', 'success'
+    )
+    return redirect(url_for('studenten'))
+
 
 # creates page for update student
 @app.route('/student/<int:id>', methods=['GET', 'POST'])

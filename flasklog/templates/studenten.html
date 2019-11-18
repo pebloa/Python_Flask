@@ -5,11 +5,9 @@
 <div>
     <!-- export button -->
     <div class="float-right">
-        <form method="POST">
-            <div class="form-group">
-                {{ form.submit(class="btn btn-secondary") }}
-            </div>
-        </form>
+        <a href="{{ url_for('export') }}">
+            <button type="button" class="btn btn-outline-info">.csv</button>
+        </a>
     </div>
     <!-- terug button -->
     <div class="float-right" style="margin-right:10px;">
