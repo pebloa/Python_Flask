@@ -75,11 +75,11 @@ def export():
     data = {'naam': studentNaam, 'voornaam': studentVoornaam, 'studentnr': studentNr, 'cohort': studentCohort}
     df = DataFrame(data, columns=['naam', 'voornaam', 'studentnr', 'cohort'])
     # df.to_csv(r'C:\Users\user\Desktop\studenten.csv', index=False, header=True)
-    # path = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop') 
-    # df.to_csv(path, index=False, header=True)
-    df.to_csv(r'C:\Users\kensonlatchmansing\Desktop\studenten.csv', index=False, header=True)
+    # df.to_csv(r'C:\Users\kensonlatchmansing\Desktop\studenten.csv', index=False, header=True)
+    path = os.path.join(os.path.join(os.environ['HOMEPATH']), 'Downloads') 
+    df.to_csv(os.path.join(path,r'studenten.csv'), index=False)
     flash(
-        f'studenten succesvol opgeslagen als .csv!', 'success'
+        f'studenten succesvol opgeslagen in Downloads als studenten.csv!', 'success'
     )
     return redirect(url_for('studenten'))
 
